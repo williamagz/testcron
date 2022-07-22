@@ -16,9 +16,7 @@ const { response } = require('express');
 // });
 
 
-
-
-//  ruta para gneracion de tablas de la base de datos, tiene acceso restringido. 
+//  ruta para generacion de tablas de la base de datos, tiene acceso restringido. crypto
 router.post('/coins' , async (req, res) => {
     const {user} = req.body;
     if (user === "william") {
@@ -69,7 +67,7 @@ router.get('/volatility', async (req, res) => {
         let delayvalue = await Coin.findAll({raw: true,});
         let currentvalue = await axios.get(`https://fapi.binance.com/fapi/v1/ticker/price`);
         let volatitable = calcVolatilityDelay(delayvalue, currentvalue);
-        res.json(volatitable);
+        res.status(200).json(volatitable);
         //res.json(currentvalue.data);
     } catch (err) {
         res.status(400).send(err);
